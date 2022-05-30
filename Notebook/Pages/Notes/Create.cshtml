@@ -1,0 +1,36 @@
+﻿@page
+@model Notebook.Pages.Notes.CreateModel
+
+<h2>
+    @(Model.Note == null ? "Create note" : "Edit note")
+</h2>
+<div class="border container" style="padding:30px">
+    <form method="post" autocomplete="off">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <input type="hidden" asp-for="Note.Id"></input>
+        <div class="mb-3">
+            <label asp-for="Note.LabelId" class="form-label"></label>
+            <span asp-validation-for="Note.LabelId" class="text-danger"></span>
+            <select asp-for="Note.LabelId" asp-items="@Model.LabelList" class="form-control">
+                <option value="">Select label</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Note.Title" class="form-label"></label>
+            <span asp-validation-for="Note.Title" class="text-danger"></span>
+            <input asp-for="Note.Title" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Note.Content" class="form-label"></label>
+            <textarea asp-for="Note.Content" class="form-control" rows="3"></textarea>
+        </div>
+        <div class ="mb-3">
+            <input type="submit" value="@(Model.Note == null ? "Create" : "Edit")" class="btn btn-success" />
+            <a asp-page="Index" class="btn btn-outline-success">Back</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"/>
+}

@@ -1,0 +1,35 @@
+﻿@page
+@model Notebook.Pages.Labels.CreateModel
+
+<h2>@(Model.Label == null || Model.Label.Id == 0 ? "Create label" : "Edit label")</h2>
+<div class="border container" style="padding:30px">
+    <form method="post" autocomplete="off">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <input type="hidden" asp-for="Label.Id"></input>
+        <div class="mb-3">
+            <label asp-for="Label.Title" class="form-label"></label>
+            <span asp-validation-for="Label.Title" class="text-danger"></span>
+            <input asp-for="Label.Title" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Label.Color" class="form-label"></label>
+            <span asp-validation-for="Label.Color" class="text-danger"></span>
+            <select asp-for="Label.Color" class="form-control">
+                <option style="background-color: GhostWhite" value="GhostWhite">Default</option>
+                <option style="background-color: MintCream" value="MintCream">MintCream</option>
+                <option style="background-color: Beige" value="Beige">Beige</option>
+                <option style="background-color: GreenYellow" value="GreenYellow">GreenYellow</option>
+                <option style="background-color: LightSalmon" value="LightSalmon">LightSalmon</option>
+                <option style="background-color: Yellow" value="Yellow">Yellow</option>
+            </select>
+        </div>
+        <div class ="mb-3">
+            <input type="submit" value="@(Model.Label == null || Model.Label.Id == 0 ? "Create" : "Edit")" class="btn btn-success" />
+            <a asp-page="Index" class="btn btn-outline-success">Back</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"/>
+}

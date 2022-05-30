@@ -1,0 +1,39 @@
+﻿@page "/"
+@model Notebook.Pages.Notes.IndexModel
+
+<nav class="navbar container-fluid">
+  <div class="container-fluid">
+    <div class="navbar-brand">
+        Your Notes:
+    </div>
+    <div class="navbar-nav me-auto d-inline mb-2">
+        <a asp-page="Create" class="btn btn-outline-success nav-item me-2">Create note</a>
+    </div>    
+    <form class="d-flex mb-2" role="search" autocomplete="off">
+        <select asp-for="SearchLabel" asp-items="Model.LabelTitles" class="dropdown-toggle form-control me-2">
+            <option value="" class="text-secondary">Select label</option>
+        </select>
+        <input asp-for="SearchInput" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+<hr class="mt-0" />
+
+<form method="post" class="container-fluid d-flex flex-wrap justify-content-center gap-2">
+    @foreach (var note in Model.Notes)
+    {
+        <div class="card shadow-sm" style="width: 18rem; background-color: @note.Label.Color">
+            <div class="card-body">
+                <h4 class="card-title">@note.Title</h4>
+                <p class="card-subtitle text-muted mb-2">@note.Label.Title</p>
+                <p class="card-text mb-2">@note.Content</p>
+                <div class="card_buttons">
+                    <a asp-page="Create" asp-route-id="@note.Id" class="btn btn-outline-success btn-sm">Edit</a>
+                    <button asp-page-handler="Delete" asp-route-id="@note.Id" onclick="return confirm('Are you sure?');" class="btn btn-outline-danger btn-sm">Delete</button>
+                </div>
+            </div>
+        </div>
+    }
+</form>

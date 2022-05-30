@@ -1,0 +1,35 @@
+﻿@page
+@model Notebook.Pages.Labels.IndexModel
+
+<nav class="navbar">
+  <div class="container-fluid">
+    <div class="navbar-brand">
+        Your Labels:
+    </div>
+    <div class="navbar-nav me-auto d-inline mb-2">
+        <a asp-page="Create" class="btn btn-outline-success nav-item">Create label</a>
+    </div>    
+    <form class="d-flex mb-2" role="search" autocomplete="off">
+        <input asp-for="SearchInput" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+    </div>
+</nav>
+
+<hr class="mt-0" />
+
+<form method="post" class="container-fluid d-flex flex-wrap justify-content-center gap-2">
+    @foreach (var label in Model.Labels)
+    {
+        <div class="card shadow-sm" style="width: 18rem; background-color: @label.Color">
+            <div class="card-body">
+                <h2 class="card-title">@label.Title</h2>
+                <p class="card-subtitle text-muted mb-2">Has notes: @label.Notes.Count()</p>
+                <div class="card_buttons">
+                    <a asp-page="Create" asp-route-id="@label.Id" class="btn btn-outline-success btn-sm">Edit</a>
+                    <button asp-page-handler="Delete" asp-route-id="@label.Id" onclick="return confirm('Are you sure you want to delete this label with all its notes?');" class="btn btn-outline-danger btn-sm">Delete</button>
+                </div>
+            </div>
+        </div>
+    }
+</form>
